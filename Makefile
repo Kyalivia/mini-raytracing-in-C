@@ -6,7 +6,7 @@
 #    By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:45:59 by hyeonsok          #+#    #+#              #
-#    Updated: 2022/01/19 02:02:08 by yookim           ###   ########.fr        #
+#    Updated: 2022/01/26 07:02:13 by yookim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCDIR := ./src
 UTILDIR := ./util
 UTIL_MLX_DIR := ./util/mlx
 UTIL_VEC_DIR := ./util/vec
+UTIL_COL_DIR := ./util/color
 
 OBJDIR := ./obj
 OBJS	= $(addprefix $(OBJDIR)/, \
@@ -28,8 +29,12 @@ OBJS	= $(addprefix $(OBJDIR)/, \
 			init_data.o \
 			init_scene.o \
 			parse.o \
-			parse_obj.o \
-			parse_uni.o \
+			parse_ambient.o \
+			parse_camera.o \
+			parse_cylinder.o \
+			parse_light.o \
+			parse_plane.o \
+			parse_sphere.o \
 			parse_util.o \
 			listen_event.o \
 			get_next_line.o \
@@ -40,6 +45,8 @@ OBJS	= $(addprefix $(OBJDIR)/, \
 			ft_strtocolor.o \
 			ft_strtovec.o \
 			ft_strvlen.o \
+			ft_iscolor.o \
+			ft_isunitvec.o \
 			ft_issign.o \
 			ft_isinscope.o \
 			ft_atof.o \
@@ -52,7 +59,8 @@ OBJS	= $(addprefix $(OBJDIR)/, \
 			light.o \
 			hit_cylinder.o\
 			hit_plane.o \
-			hit_sphere.o)
+			hit_sphere.o \
+			color_operator.o)
 
 NAME = miniRT
 
@@ -73,6 +81,9 @@ $(OBJDIR)/%.o : $(UTIL_MLX_DIR)/%.c
 			@$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)/%.o : $(UTIL_VEC_DIR)/%.c
+			@$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/%.o : $(UTIL_COL_DIR)/%.c
 			@$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@
 
 .PHONY:		NAME

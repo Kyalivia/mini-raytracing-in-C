@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.h                                            :+:      :+:    :+:   */
+/*   ft_isunitvec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: hyeonsok <hyeonsok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 02:08:55 by yookim            #+#    #+#             */
-/*   Updated: 2022/01/26 07:03:50 by yookim           ###   ########.fr       */
+/*   Created: 2022/01/19 15:21:10 by hyeonsok          #+#    #+#             */
+/*   Updated: 2022/01/19 15:41:19 by hyeonsok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHT_H
-# define LIGHT_H
-# include "minirt.h"
+#include "libftx.h"
 
-t_color	lighting(t_data *data);
-
-#endif
+int ft_isunitvec(t_vec vec)
+{
+    if ((pow(vec.i, 2) + pow(vec.j, 2) + pow(vec.k, 2)) != 1)
+        return (0);
+    return (1);
+}

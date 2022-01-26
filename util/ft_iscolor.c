@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.h                                            :+:      :+:    :+:   */
+/*   ft_iscolor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: hyeonsok <hyeonsok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 02:08:55 by yookim            #+#    #+#             */
-/*   Updated: 2022/01/26 07:03:50 by yookim           ###   ########.fr       */
+/*   Created: 2022/01/19 15:20:52 by hyeonsok          #+#    #+#             */
+/*   Updated: 2022/01/19 15:31:39 by hyeonsok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHT_H
-# define LIGHT_H
-# include "minirt.h"
+#include "libftx.h"
 
-t_color	lighting(t_data *data);
-
-#endif
+int	ft_iscolor(t_color color)
+{
+	return (ft_isinscope(color.r, 1.0, 0.0) && ft_isinscope(color.g, 1.0, 0.0) 
+		&& ft_isinscope(color.b, 1.0, 0.0));
+}
