@@ -3,18 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isunitvec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonsok <hyeonsok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:21:10 by hyeonsok          #+#    #+#             */
-/*   Updated: 2022/01/19 15:41:19 by hyeonsok         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:08:31 by yookim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftx.h"
 
-int ft_isunitvec(t_vec vec)
+#define MARGIN_OF_ERROR 0.1f
+
+int	ft_isunitvec(t_vec vec)
 {
-    if ((pow(vec.i, 2) + pow(vec.j, 2) + pow(vec.k, 2)) != 1)
-        return (0);
-    return (1);
+	double	res;
+
+	res = vec.i * vec.i + vec.j * vec.j + vec.k * vec.k;
+	if (res < 1.f - MARGIN_OF_ERROR || res > 1.f + MARGIN_OF_ERROR)
+		return (0);
+	return (1);
 }

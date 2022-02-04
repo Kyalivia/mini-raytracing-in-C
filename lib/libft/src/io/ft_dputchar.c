@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light.h                                            :+:      :+:    :+:   */
+/*   ft_dputchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: hyeonsok <hyeonsok@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 02:08:55 by yookim            #+#    #+#             */
-/*   Updated: 2022/01/26 07:03:50 by yookim           ###   ########.fr       */
+/*   Created: 2021/01/02 21:22:31 by hyeonsok          #+#    #+#             */
+/*   Updated: 2022/01/25 01:17:00 by hyeonsok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIGHT_H
-# define LIGHT_H
-# include "minirt.h"
+#include "libft/io.h"
 
-t_color	lighting(t_data *data);
-
-#endif
+int	ft_dputchar(int fd, int c)
+{
+	return (write(fd, &c, 1));
+}

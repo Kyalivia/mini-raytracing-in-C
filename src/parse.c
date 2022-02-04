@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonsok <hyeonsok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yookim <yookim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 18:27:41 by hyeonsok          #+#    #+#             */
-/*   Updated: 2022/01/19 14:35:48 by hyeonsok         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:08:40 by yookim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	handle_invalid(t_data *data, char *strv[])
+static void	parse_error(t_data *data, char *strv[])
 {
+	(void)data;
 	if (!strv || !*strv || **strv == '#')
 		return ;
-	ft_error("Invalid identifier");
+	ft_error("parse_error: Invalid identifier");
 }
 
 static int	get_id(char *id)
@@ -38,41 +39,35 @@ static int	get_id(char *id)
 	return (SPEC_NO);
 }
 
-static void	init_funcptr(void (*fp[7])(t_data *, char *[]))
-{
-	fp[0] = parse_ambient;
-	fp[1] = parse_camera;
-	fp[2] = parse_light;
-	fp[3] = parse_plane;
-	fp[4] = parse_sphere;
-	fp[5] = parse_cylinder;
-	fp[6] = handle_invalid;
-}
+static const t_parser	g_parser[] = {
+	{parse_ambient},
+	{parse_camera},
+	{parse_light},
+	{parse_plane},
+	{parse_sphere},
+	{parse_cylinder},
+	{parse_error}
+};
 
 void	parse(int fd, t_data *data)
 {
 	char	*line;
 	char	**strv;
-	void	(*fp[7])(t_data *, char *[]);
 
 	if (fd < 0)
 		ft_fatal("open");
 	line = get_next_line(fd);
 	if (!line)
-		ft_error("Empty file");
-	init_funcptr(fp);
+		ft_error("parse: Empty file");
 	while (line)
 	{
 		strv = ft_split(line, " \t\n");
 		free(line);
-		fp[get_id(strv[0])](data, strv);
+		g_parser[get_id(strv[0])].fn(data, strv);
 		ft_strvfree(strv);
 		line = get_next_line(fd);
 	}
 	if (!data->scene.count || !data->ambient.count || !data->light.count)
-	{
-		system("leaks miniRT");
-		ft_error("One or more identifiers are not declared.");
-	}
+		ft_error("parse: One or more identifiers are not declared.");
 	close(fd);
 }
